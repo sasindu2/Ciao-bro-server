@@ -1,27 +1,28 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
-const dotenv = require("dotenv");
-const connectDb = require("./config/db");
+const express = require('express');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const userRoutes = require('./routes/userRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const cors = require('cors');
+const morgan = require('morgan');
+const authRoutes = require('./routes/authRoutes');
 
 
 dotenv.config();
-
-//DB connection
-connectDb();
+connectDB();
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
-app.get("/", (req,res)=>{
-    return res.status(200).send("<h1>Welcome to server</h1>");
-});
+// Routes
 
-const PORT = process.env.PORT;
+ app.use('/api/user', userRoutes);
 
-app.listen(PORT,()=>{
-    console.log("Server Running ");
-});
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
+
+
+const PORT = process.env.PORT ;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
