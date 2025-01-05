@@ -10,9 +10,9 @@ router.use(adminProtect); // Then check if user is admin
 
 // Food management routes
 router.get('/foods', adminController.getAllFoods);
-router.post('/foods', adminController.addFood);
-router.put('/foods/:id', adminController.updateFood);
-router.delete('/foods/:id', adminController.deleteFood);
+router.post('/addFood', adminController.uploadMiddleware, adminController.addFood);
+router.put('/updateFood/:id',  adminController.updateFood);
+router.delete('/food/:id', adminController.deleteFood);
 
 // Category management routes
 router.post('/categories', adminController.addCategory); 

@@ -6,12 +6,13 @@ const adminRoutes = require('./routes/adminRoutes');
 const cors = require('cors');
 const morgan = require('morgan');
 const authRoutes = require('./routes/authRoutes');
+const app = express();
+const path = require('path');
 
 
 dotenv.config();
 connectDB();
 
-const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
@@ -22,6 +23,10 @@ app.use(morgan('dev'));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+
+//handle static file 
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use(express.static('public'));
 
 
 const PORT = process.env.PORT ;
