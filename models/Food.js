@@ -14,8 +14,9 @@ const foodSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String, // URL or path to the image
-    required: true,
+    type: String, 
+    default: "https://th.bing.com/th/id/OIP.RWaaZCnAJwE8O0FxwD7y0AHaEo?rs=1&pid=ImgDetMain", 
+
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
