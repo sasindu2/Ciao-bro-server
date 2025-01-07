@@ -72,6 +72,4 @@ const deletecategory = async (req, res) => {
   }
 };
 
-module.exports = { updatecategory };
-
 module.exports = { getAllCategory, createCategory, updatecategory ,deletecategory };
