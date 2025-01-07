@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const connectDb = require("./config/db");
 const AdminRoute = require("./router/AdminRoute");
+const CategoryRoute = require("./router/CategoryRoute");
+
 
 
 dotenv.config();
@@ -28,3 +30,4 @@ app.listen(PORT,()=>{
 
 // Routes
 app.use('/api/Admin', AdminRoute);
+app.use('/api/Category', CategoryRoute);
