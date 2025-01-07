@@ -7,6 +7,8 @@ const connectDb = require("./config/db");
 const AdminRoute = require("./router/AdminRoute");
 const CategoryRoute = require("./router/CategoryRoute");
 const FoodRoute = require("./router/FoodRoute");
+const OrderRoute = require("./router/OrderRoute");
+
 
 dotenv.config();
 connectDb();
@@ -32,4 +34,6 @@ app.listen(PORT,()=>{
 app.use('/api/Admin', AdminRoute);
 app.use('/api/Category', CategoryRoute);
 app.use('/api/Food', FoodRoute);
+app.use('/api/Order', OrderRoute);
+
 
