@@ -1,5 +1,5 @@
 const Order = require("../model/Order");
-
+const io = require("../server");
 // Get all getallOrder
 const getallOrder = async (req, res) => {
   try {
@@ -43,6 +43,10 @@ const createOrder = async (req, res) => {
 
     await newOrder.save();
 
+    // Emit the new order event to all connected clients
+    const io = req.app.get("socketio");
+    io.emit("newOrder", { message: "New order created", order: newOrder });
+    
     res
       .status(201)
       .json({ message: "Order created successfully", order: newOrder });
