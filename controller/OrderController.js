@@ -68,9 +68,9 @@ const orderstatuschange = async (req, res) => {
 
     const validStatuses = [
       "pending",
-      "cooking",
+      "in_progress",
       "delivered",
-      "done",
+      "completed",
       "rejected",
     ];
     if (!validStatuses.includes(order_status)) {
@@ -117,4 +117,4 @@ const deleteorder = async (req, res) => {
   }
 };
 
-module.exports = { getallOrder, createOrder, orderstatuschange };
+module.exports = { getallOrder, createOrder, orderstatuschange,deleteorder };
