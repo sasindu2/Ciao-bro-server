@@ -10,7 +10,7 @@ router.get('/', getAllFood);
 router.post('/',jwtMiddleware, createFood);
 router.patch('/:id',jwtMiddleware, updateFood);
 router.delete('/:id',jwtMiddleware, deleteFood);
-router.get('/:id',jwtMiddleware, categorygetfood);
+router.get('/:id', categorygetfood);
 
 
 module.exports = router;
