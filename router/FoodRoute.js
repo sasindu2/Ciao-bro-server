@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Routes
 router.get('/', getAllFood);
-router.get('/availablity', getavalinbality);
+router.get('/getavailablity/:id', getavalinbality);
 router.post('/',jwtMiddleware, createFood);
 router.patch('/:id',jwtMiddleware, updateFood);
 router.delete('/:id',jwtMiddleware, deleteFood);
