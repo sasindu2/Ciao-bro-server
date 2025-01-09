@@ -9,8 +9,8 @@ const CategoryRoute = require("./router/CategoryRoute");
 const FoodRoute = require("./router/FoodRoute");
 const OrderRoute = require("./router/OrderRoute");
 
+const http = require("http"); // Correct usage here
 const { Server } = require("socket.io");
-const http = require("http");
 
 dotenv.config();
 connectDb();
@@ -33,9 +33,7 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 // Create HTTP server
-const server = http.createServer(app);
-
-// Initialize Socket.IO
+const server = http.createServer(app); // Correct HTTP server setup
 const io = new Server(server, {
   cors: {
     origin: "*",
