@@ -24,7 +24,7 @@ app.use(morgan("dev"));
 
 // Test route
 app.get("/", (req, res) => {
-  const io = app.get("socketio"); // Get socket.io instance
+  const io = app.get("socketio");
   io.emit("test-event", { message: "New order created" });
   return res.status(200).send("<h1>Server is running...</h1>");
 });
@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
   });
 });
 
-// Start server
+// Start the server
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
