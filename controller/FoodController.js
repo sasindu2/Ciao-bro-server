@@ -96,5 +96,44 @@ const categorygetfood = async (req, res) => {
     res.status(500).json({ message: "Error deleting Category", error });
   }
 };
+const Availablity = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedFood = await Food.findById(id);
 
-module.exports = { getAllFood, createFood, updateFood, deleteFood,categorygetfood };
+    if (!updatedFood) {
+      return res.status(404).json({ message: "Food not found." });
+    }
+    const newAvailability = !updatedFood.isAvailable;
+    const newupdatedFood = await Food.findByIdAndUpdate(
+      id,
+      { isAvailable: newAvailability }, // Correct update object
+      { new: true } // Return the updated document
+    );
+
+    res.status(200).json({
+      message: "Food updated availability successfully.",
+      food: newupdatedFood,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error Updating Food", error });
+  }
+};
+
+const getavalinbality = async (req, res) => {
+  try {
+    const allFood = await Food.find({ isAvailable: true }); 
+    res.status(200).json(allFood);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching Food", error });
+  }
+};
+
+
+
+
+
+module.exports = { getAllFood, createFood, updateFood, deleteFood,categorygetfood,Availablity,getavalinbality };
