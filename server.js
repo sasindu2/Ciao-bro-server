@@ -17,18 +17,25 @@ connectDb();
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+// Test route
 app.get("/", (req, res) => {
+  const io = app.get("socketio"); // Get socket.io instance
   io.emit("test-event", { message: "New order created" });
   return res.status(200).send("<h1>Server is running...</h1>");
 });
 
+// Port
 const PORT = process.env.PORT || 5000;
 
+// Create HTTP server
 const server = http.createServer(app);
+
+// Initialize Socket.IO
 const io = new Server(server, {
   cors: {
     origin: "*",
@@ -36,26 +43,23 @@ const io = new Server(server, {
   },
 });
 
+// Attach Socket.IO to the app
 app.set("socketio", io);
 
+// Socket.IO connection handling
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
 
-  //   socket.on("newOrder", (data) => {
-  //     console.log("New order received:", data);
-  //   });
-
-  //   setInterval(() => {
-  //     socket.emit("test-response", { message: "Test response from server!" });
-  //   }, 1000);
-
+  // Example: Emit new order event
   io.emit("newOrder", { message: "New order created" });
 
+  // Handle disconnect
   socket.on("disconnect", () => {
     console.log("A user disconnected:", socket.id);
   });
 });
 
+// Start server
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
