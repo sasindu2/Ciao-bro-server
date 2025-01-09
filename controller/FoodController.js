@@ -124,8 +124,12 @@ const Availablity = async (req, res) => {
 
 const getavalinbality = async (req, res) => {
   try {
-    const allFood = await Food.find({ isAvailable: true }); 
-    res.status(200).json(allFood);
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "category ID is required." });
+    }
+    const foods = await Food.find({ category: id, isAvailable: true });
+      res.status(200).json({ data: foods });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error fetching Food", error });
